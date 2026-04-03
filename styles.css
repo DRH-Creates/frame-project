@@ -1050,22 +1050,371 @@ button {
 /* ==============================================
    EDITOR'S PICKS SECTION
    ============================================== */
+.picks-section { 
+   background-color: linear-gradient(135deg, #ffffff, #f5f5f5);
+   padding: var(--section-padding);
+   text-align: center;
+}
 
+.picks-heading {
+   text-align: center;
+   margin-bottom: var(--space-xl);
+}
+
+.picks-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+   gap: var(--grid-gap-md);
+   max-width: var(--max-width-wide);
+   margin: 0 auto;
+}
+
+.pick-card {
+   position: relative;
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-lg);
+   overflow: hidden;
+   background-color: var(--color-background);
+   box-shadow: var(--shadow-hover);
+}
+
+.pick-badge {
+   position: absolute;
+   top: 1rem;
+   right: 1rem;
+   z-index: 10;
+   background-color: var(--color-heading);
+   color: var(--main-color);
+   font-family: var(--font-heading);
+   font-size: var(--font-size-meta);
+   font-weight: 700;
+   width: 2rem;
+   height: 2rem;
+   text-align: center;
+   border-radius: 50%;
+}
+
+.pick-image {
+   width: 100%;
+   aspect-ratio: 2/1;
+   object-fit: cover;
+   object-position: center;
+   transition: filter var(--transition-base), transform var(--transition-base);
+}
+
+.pick-card:nth-child(1) .pick-image {
+   filter: grayscale(100%);
+}
+
+.pick-card:nth-child(2) .pick-image {
+   filter: sepia(70%) brightness(0.95);
+}
+
+.pick-card:nth-child(3) .pick-image {
+   filter: saturate(30%) brightness(1.1);
+}
+
+.pick-card:hover .pick-image {
+   filter: none;
+   transform: scale(1.05);
+}
+
+.card-header {
+   display: flex;
+   align-items: center;
+   gap: 0.625rem;
+   padding: 0.875rem 1.25rem;
+}
+
+.pick-title {
+   font-size: var(--font-size-small);
+   font-weight: 700;
+}
+
+.design-header {
+   background-color: darkseagreen;
+   color: white;
+}
+
+.pick-body {
+   padding: 1.25rem;
+   text-align: left;
+}
+
+.pick-desc {
+   font-size: 1rem;
+   font-weight: 300;
+   color: rgba(0, 0, 0, 0.6);
+   line-height: 1.6;
+   margin-bottom: var(--space-md);
+}
+
+.brand-header {
+   background-color: rgba(205, 234, 104);
+   color: white;
+}
+
+.photo-header {
+   background-color: hsl(75, 60%, 45%);
+   color: white;
+}
+
+.pick-link {
+   display: inline-block;
+   position: relative;
+   font-size: 1rem;
+   font-weight: 600;
+   color: var(--main-color-dark);
+   text-decoration: none;
+}
+
+.pick-link::after {
+   content: "";
+   position: absolute;
+   bottom: -2px;
+   left: 0;
+   width: 0;
+   height: 2px;
+   background-color: var(--main-color-dark);
+}
+
+.pick-link:hover {
+   color: #3a5010;
+}
+
+.pick-lin::after {
+   width: 100%;
+}
+
+.picks-grid {
+   perspective: 1000px;
+}
+
+@keyframes tiltReveal {
+   0% {
+      opacity: 0;
+      transform: rotateY(-35deg) scale(0.85) translateY(30px);
+      filter: blur(4px);
+   }
+   60% {
+      opacity: 1;
+      filter: blur(0);
+
+   }
+   100% {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1) translateY(0);
+      filter: blur(0);
+   }
+}
+
+.pick-card:nth-child(1) {
+      animation: tiltReveal 0.7s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+}
+
+.pick-card:nth-child(2) {
+   animation: tiltReveal 0.7s ease 0.2s both;
+   animation-timeline: view();
+   animation-range: entry 0% cover 40%;
+}
+
+.pick-card:nth-child(3) {
+   animation: tiltReveal 0.7s ease 0.4s both;
+   animation-timeline: view();
+   animation-range: entry 0% cover 40%;
+}
 
 /* ==============================================
    FAQ SECTION
    ============================================== */
+.faq-wrapper {
+   padding: var(--section-padding);
+   background-color: var(--color-surface);
+}
 
+.faq-list {
+   text-align: left;
+   background-color: var(--color-background);
+   padding: 2.5rem;
+   border-radius: var(--radius-lg);
+   border: 1px solid var(--color-border);
+   max-width: var(--max-width-narrow);
+   margin: 0 auto;
+}
+
+.faq-item {
+   border-bottom: 1px solid var(--color-border);
+}
+/* changes mouse type on summary to pointer and removes default marker */
+.faq-item summary {
+   cursor: pointer;
+   list-style: none;
+}
+/* disables it on webkit browsers (chrome, safari, edge) that dont support it */
+.faq-item summary::-webkit-details-marker {
+   display: none;
+}
+
+.faq-question {
+   font-family: var(--font-heading);
+   font-weight: 600;
+   font-size: 1.1rem;
+   color: var(--color-heading);
+   padding: 1rem 2.5rem 1rem 0;
+   position: relative;
+}
+
+.faq-question::after {
+   content: "+";
+   position: absolute;
+   right: 0;
+   top: 50%;
+   margin-top: -10px;
+   font-size: 1.3rem;
+   color: var(--color-text-muted);
+   font-weight: 300;
+   transition: transform 0.3s ease,
+               color 0.3s ease;
+}
+
+details[open] .faq-question::after {
+   content: "+";
+   color: var(--color-background-dark);
+   transform: rotate(45deg);
+}
+
+.faq-answer {
+   font-size: var(--font-size-small);
+   color: rgba(0, 0, 0, 0.6);
+   line-height: 1.7;
+   border-left: 3px solid var(--main-color);
+   padding: var(--space-md);
+}
 
 /* ==============================================
    CTA SECTION
    ============================================== */
+.cta-section {
+   background-image: url('assets/images/cta-section.webp');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+}
 
+.cta-overlay {
+   padding: 7.5rem 2.5rem;
+   background-color: rgba(10, 10, 10, 0.6);
+   text-align: center;
+}
+
+.cta-title {
+   font-family: var(--color-heading);
+   font-size: var(--font-size-section);
+   color: var(--color-background);
+   margin-bottom: var(--space-md);
+   line-height: 1.2;
+   font-weight: 800;
+}
+
+.cta-text {
+   max-width: 31.25rem;
+   color: rgba(225, 225, 225, 0.7);
+   margin: 0 auto;
+   line-height: 1.7;
+   margin-bottom: 2.5rem;
+}
+
+.cta-button {
+   display: inline-block;
+   background-color: var(--main-color);
+   border-radius: var(--radius-pill);
+   padding: 1rem 2.5rem;
+   text-decoration: none;
+   font-size: var(--font-size-body);
+   margin-top: var(--space-lg);
+   transition: transform var(--transition-base), 
+               box-shadow var(--transition-base);
+}
+
+.cta-button:hover {
+   transform: translateY(-3px);
+   box-shadow: 0 0 1.56rem rgba(205, 234, 104, 0.5);
+}
+
+.cta-button:active {
+   transform: translateY(1px);
+}
 
 /* ==============================================
    CONTACT SECTION 
    ============================================== */
+.contact-section {
+   background-color: var(--main-color);
+   padding: 5rem 2.5rem;
+}
 
+.contact-container { 
+   display: flex;
+   gap: 5%;
+   max-width: var(--max-width-wide);
+   margin: 0 auto;
+}
+
+.contact-info {
+   flex: 1;
+} 
+.section-label {}
+.contact-heading {
+   font-size: var(--font-size-section-lg);
+   font-weight: 800;
+   color: var(--color-heading);
+   margin-bottom: var(--space-lg);
+}
+
+.contact-desc {
+   font-size: var(--font-body);
+   line-height: 1.7;
+   font-weight: 300;
+   color: var(--color-background-dark);
+   margin-bottom: var(--space-lg);
+}
+
+.contact-image {
+   border-radius: var(--radius-lg);
+   width: 100%;
+}
+
+.contact-form-wrapper {
+   flex: 1;
+}
+
+.form-label {
+   display: block;
+   font-size: 0.85rem;
+   font-family: var(--font-heading);
+   font-weight: 600;
+   color: var(--color-heading);
+   margin-bottom: var(--space-xs);
+}
+
+.form-input, 
+.form-textarea {
+   padding: 14px 16px;
+   border-radius: var(--radius-md);
+   margin-bottom: 20px;
+   border: 1px solid var(--color-border);
+   width: 100%;
+   display: block;
+}
+
+.form-button {
+   background-color: var(--color-heading);
+   color: var(--main-color);
+   border-radius: var(--radius-pill);
+   padding: 12px 28px;
+}
 
 /* ==============================================
    FOOTER AREA
