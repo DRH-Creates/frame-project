@@ -303,18 +303,6 @@ button {
    transition: all var(--transition-base);
 }
 
-@keyframes heartbeat {
-   0%, 100% {
-      transform: scale(1);
-   }
-   10%, 30% {
-      transform: scale(1.1);
-   }
-   20%, 40% {
-      transform: scale(1);
-   }
-}
-
 .page-header .nav-cta:hover {
    background-color: transparent;
    border-color: var(--main-color);
@@ -426,27 +414,6 @@ button {
       hideCursor 0.1s ease 3s forwards;
 }
 
-@keyframes typing {
-   from {
-      width: 0;
-   }
-   to {
-      width: 100%;
-   }
-}
-
-@keyframes blink {
-   50% {
-      border-color: transparent;
-   }
-}
-
-@keyframes hideCursor {
-   to {
-      border-color: transparent;
-   }
-}
-
 .hero-section .hero-content .hero-title {
    font-family: var(--font-headings);
    font-size: var(--font-size-hero);
@@ -524,17 +491,6 @@ button {
    /* width: 40%; */
    z-index: 2;
    animation: fadeInRight 0.8s ease forwards;
-}
-
-@keyframes fadeInRight {
-   from {
-      opacity: 0;
-      transform: translateX(30px);
-   }
-   to {
-      opacity: 1;
-      transform: translateX(0px);
-   }
 }
 
 .hero-section .hero-image-wrapper::before {
@@ -936,18 +892,6 @@ button {
     line-height: 1.7;
 }
 
-/* Zoom In (Scale Up) */
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 /* ==============================================
    TESTIMONIALS SECTION
    ============================================== */
@@ -1034,17 +978,6 @@ button {
     font-size: var(--font-size-label);
     color: rgba(77, 107, 21, 1);
     margin-top: 2px;
-}
-
-@keyframes flipIn {
-  from {
-    transform: perspective(400px) rotateY(90deg);
-    opacity: 0;
-  }
-  to {
-    transform: perspective(400px) rotateY(0deg);
-    opacity: 1;
-  }
 }
 
 /* ==============================================
@@ -1188,24 +1121,6 @@ button {
 
 .picks-grid {
    perspective: 1000px;
-}
-
-@keyframes tiltReveal {
-   0% {
-      opacity: 0;
-      transform: rotateY(-35deg) scale(0.85) translateY(30px);
-      filter: blur(4px);
-   }
-   60% {
-      opacity: 1;
-      filter: blur(0);
-
-   }
-   100% {
-      opacity: 1;
-      transform: rotateY(0deg) scale(1) translateY(0);
-      filter: blur(0);
-   }
 }
 
 .pick-card:nth-child(1) {
@@ -1364,7 +1279,11 @@ details[open] .faq-question::after {
 
 .contact-info {
    flex: 1;
-} 
+   animation: revealFromLeft 0.8s ease both;
+   animation-timeline: view();
+   animation-range: entry 0% cover 40%;
+}
+
 .section-label {}
 .contact-heading {
    font-size: var(--font-size-section-lg);
@@ -1388,6 +1307,11 @@ details[open] .faq-question::after {
 
 .contact-form-wrapper {
    flex: 1;
+   align-self: flex-end;
+   animation: revealFromRight 0.8s ease 0.15s both;
+   animation-timeline: view();
+   animation-range: entry 0% cover 40%;
+
 }
 
 .form-label {
@@ -1401,9 +1325,10 @@ details[open] .faq-question::after {
 
 .form-input, 
 .form-textarea {
-   padding: 14px 16px;
+   padding: 0.875rem 1rem;
    border-radius: var(--radius-md);
-   margin-bottom: 20px;
+   background-color: var(--color-background);
+   margin-bottom: 1.25rem;
    border: 1px solid var(--color-border);
    width: 100%;
    display: block;
@@ -1413,13 +1338,130 @@ details[open] .faq-question::after {
    background-color: var(--color-heading);
    color: var(--main-color);
    border-radius: var(--radius-pill);
-   padding: 12px 28px;
+   padding: 0.625rem 1.5rem;
+   border: none;
+   font-size: var(--font-body);
+   cursor: pointer;
+   transition: background-color var(--transition-base)
+               color var(--transition-base);
+}
+
+.form-button:hover {
+   background-color: var(--main-color-dark);
+   color: var(--color-heading);
 }
 
 /* ==============================================
    FOOTER AREA
    ============================================== */
-   
+.page-footer {
+   background-color: var(--color-background-dark);
+   color: var(--color-background);
+   padding: 60px 40px 30px;
+}
+
+.footer-columns {
+   display: grid;
+   grid-template-columns: 2fr repeat(3, 1fr);
+   gap: var(--grid-gap-md);
+   max-width: var(--max-width-wide);
+   margin: 0 auto 40px;
+}
+
+.footer-brand {
+   font-family: var(--font-heading);
+   font-size: 1.3rem;
+   font-weight: 700;
+   letter-spacing: 2px;
+   margin-bottom: var(--space-sm);
+}
+
+.footer-tagline{
+   color: var(--main-color);
+   font-size: 0.8rem;
+}
+
+.footer-col-title {
+   font-family: var(--font-heading);
+   font-size: .85rem;
+   font-weight: 600;
+   text-transform: uppercase;
+   margin-bottom: 10px;
+
+}
+
+.footer-link {
+   display: block;
+   margin-bottom: 12px;
+   padding-left: 0;
+   color: rgba(255, 255, 255, 0.7);
+   text-decoration: none;
+
+   transition: padding-left var(--transition-base),
+               color var(--transition-base);
+}
+
+.footer-link:hover {
+   padding-left: 8px;
+   color: var(--main-color);
+}
+
+.footer-social {
+   display: flex;
+   gap: 10px;
+}
+
+.social-link {
+   color: var(--color-background);
+   text-decoration: none;
+   transition: box-shadow var(--transition-base),
+               transform var(--transition-base),
+               color var(--transition-base);
+}
+
+.social-link:hover {
+   color: var(--main-color);
+   transform: scale(1.3);
+   box-shadow: 0 0 12px rgba(240, 236, 47, 0.6);
+}
+
+.footer-bottom {
+   border-top: 1px solid rgba(197, 197, 197, 0.7);
+   text-align: center;
+   padding-top: 30px;
+}
+
+.footer-copy {
+   color: rgba(255, 255, 255, 0.6);
+   font-size: var(--font-size-meta);
+}
+
+.back-to-top {
+   position: fixed;
+   z-index: 1000;
+   bottom: 5%;
+   right: 5%;
+   color: var(--main-color);
+   background-color: var(--color-background-dark);
+   width: 44px;
+   height: 44px;
+   border-radius: 50%;
+   text-align: center;
+   line-height: 44px;
+   border: 2px solid var(--main-color);
+   text-decoration: none;
+   font-size: var(--font-size-body);
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+   transition: background-color var(--transition-base),
+               color var(--transition-base);
+}
+
+.back-to-top:hover {
+   background-color: var(--main-color);
+   color: var(--color-heading);
+   transform: translateY(-3px);
+   box-shadow: 0 0 15px rgba(240, 236, 47, 0.4);
+}
 
    /* ==============================================
    CSS ANIMATIONS
@@ -1434,6 +1476,117 @@ details[open] .faq-question::after {
          transform: translateY(0);
       }
    }
+
+   @keyframes typing {
+   from {
+      width: 0;
+   }
+   to {
+      width: 100%;
+   }
+}
+
+@keyframes blink {
+   50% {
+      border-color: transparent;
+   }
+}
+
+@keyframes hideCursor {
+   to {
+      border-color: transparent;
+   }
+}
+
+   @keyframes fadeInRight {
+   from {
+      opacity: 0;
+      transform: translateX(30px);
+   }
+   to {
+      opacity: 1;
+      transform: translateX(0px);
+   }
+}
+
+   @keyframes flipIn {
+  from {
+    transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+   /* Zoom In (Scale Up) */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heartbeat {
+   0%, 100% {
+      transform: scale(1);
+   }
+   10%, 30% {
+      transform: scale(1.1);
+   }
+   20%, 40% {
+      transform: scale(1);
+   }
+}
+
+@keyframes tiltReveal {
+   0% {
+      opacity: 0;
+      transform: rotateY(-35deg) scale(0.85) translateY(30px);
+      filter: blur(4px);
+   }
+   60% {
+      opacity: 1;
+      filter: blur(0);
+
+   }
+   100% {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1) translateY(0);
+      filter: blur(0);
+   }
+}
+
+@keyframes revealFromLeft {
+   from {
+      transform: translateX(-60px), scale(0.95);
+      opacity: 0;
+      filter: blur(2px);
+   }
+   to {
+      
+   }
+}
+
+@keyframes revealFromRight {
+   from {
+      transform: translateX(60px), scale(0.95);
+      opacity: 0;
+      filter: blur(2px);
+   }
+   to {
+   transform: translateX(0), scale(1);
+      opacity: 1;
+      filter: blur(0);
+   }
+}
+
+
 /* ==============================================
    MEDIA QUERIES
    ============================================== */
